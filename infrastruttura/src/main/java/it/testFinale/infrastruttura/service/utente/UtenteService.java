@@ -1,4 +1,4 @@
-package it.testFinale.infrastruttura.service;
+package it.testFinale.infrastruttura.service.utente;
 
 import it.testFinale.infrastruttura.object.dto.UtenteDTO;
 
@@ -13,10 +13,10 @@ public interface UtenteService {
     UtenteDTO findUtenteById(Long id);
 
 
-    UtenteDTO salvaUtente(UtenteDTO libroDTO);
+    UtenteDTO salvaUtente(UtenteDTO utenteDTO);
 
 
-    UtenteDTO updateUtente(Long id, UtenteDTO libro);
+    UtenteDTO updateUtente(Long id, UtenteDTO utenteDTO);
 
 
     void deleteUtente(Long id);
