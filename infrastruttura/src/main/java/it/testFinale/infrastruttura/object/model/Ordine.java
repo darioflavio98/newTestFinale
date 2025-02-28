@@ -3,7 +3,8 @@ package it.testFinale.infrastruttura.object.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -19,7 +20,7 @@ public class Ordine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private LocalDate data;
+    private LocalDateTime data;
     @Column(nullable = false)
     private String stato; // IN_ATTESA, SPEDITO, CONSEGNATO
     @Column(nullable = false)

@@ -2,7 +2,6 @@ package it.testFinale.infrastruttura.service.ordine;
 
 import it.testFinale.infrastruttura.object.dto.DettaglioOrdineDTO;
 import it.testFinale.infrastruttura.object.dto.OrdineDTO;
-import it.testFinale.infrastruttura.object.dto.UtenteDTO;
 import it.testFinale.infrastruttura.object.model.DettaglioOrdine;
 import it.testFinale.infrastruttura.object.model.Ordine;
 import it.testFinale.infrastruttura.object.model.Prodotto;
@@ -11,14 +10,12 @@ import it.testFinale.infrastruttura.repository.DettaglioOrdineRepository;
 import it.testFinale.infrastruttura.repository.OrdineRepository;
 import it.testFinale.infrastruttura.repository.ProdottoRepository;
 import it.testFinale.infrastruttura.repository.UtenteRepository;
-import it.testFinale.infrastruttura.service.dettaglio.DettaglioOrdineServiceImpl;
 import it.testFinale.infrastruttura.tools.ConvertiInDto;
-import it.testFinale.infrastruttura.tools.ConvertiInEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
+;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -73,6 +70,13 @@ public class OrdineServiceImpl implements OrdineService {
 
     }
 
+    @Override
+    public List<OrdineDTO> findOrdiniIntervalloDate(LocalDateTime inizio, LocalDateTime fine) {
+        List <OrdineDTO> ordiniInIntervallo = ordineRepository.findOrdiniInIntervallo(inizio,fine).stream()
+                .map(ConvertiInDto::convertiInOrdineDTO).toList();
+        return ordiniInIntervallo;
+    }
+
 
     @Override
     @Transactional
@@ -106,7 +110,7 @@ public class OrdineServiceImpl implements OrdineService {
         }
         ordine.setTotale(totaleOrdine);
         ordine.setDettagli(dettaglioOrdines);
-        ordine.setData(LocalDate.now());
+        ordine.setData(LocalDateTime.now());
         ordine.setStato("IN_ATTESA");
         ordine.setUtente(utente);
 

@@ -2,9 +2,8 @@ package it.testFinale.infrastruttura.controller;
 
 import it.testFinale.infrastruttura.object.dto.OrdineDTO;
 import it.testFinale.infrastruttura.service.ordine.OrdineService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -40,8 +39,17 @@ public class OrdineController {
     @GetMapping("/totale-spesa/{id}")
     public Double getTotaleSpesaUtente(@PathVariable Long id) {
 
-        Double totaleSpesa = ordineService.totaleSpesaUtente(id);
-        return totaleSpesa;
+        return ordineService.totaleSpesaUtente(id);
+    }
+
+    /*(@RequestParam("inizio") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime inizio,
+                                               @RequestParam("fine") @DateTimeFormat(pattern = "yyyy-MM-dd")LocalDateTime fine)*/
+    @GetMapping("/ordini-intervallo")
+    public List<OrdineDTO> getOrdiniIntervallo(LocalDateTime inizio, LocalDateTime fine){
+
+        return ordineService.findOrdiniIntervalloDate(inizio,fine);
+
+
     }
 
     @PutMapping("/{id}")

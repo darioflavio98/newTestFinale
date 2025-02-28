@@ -1,9 +1,7 @@
 package it.testFinale.infrastruttura.service.ordine;
 
 import it.testFinale.infrastruttura.object.dto.OrdineDTO;
-import it.testFinale.infrastruttura.object.dto.UtenteDTO;
-import it.testFinale.infrastruttura.object.model.Utente;
-
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface OrdineService {
@@ -21,4 +19,6 @@ public interface OrdineService {
     List<OrdineDTO> findOrdiniByUtenteId(Long id);
 
     Double totaleSpesaUtente(Long id);
+
+    List<OrdineDTO> findOrdiniIntervalloDate(LocalDateTime inizio, LocalDateTime fine);
 }

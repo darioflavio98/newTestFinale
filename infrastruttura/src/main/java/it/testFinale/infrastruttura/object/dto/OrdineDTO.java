@@ -3,13 +3,13 @@ package it.testFinale.infrastruttura.object.dto;
 
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 public class OrdineDTO {
     private Long id;
-    private LocalDate data;
+    private LocalDateTime data;
     private String stato;
     private Double totale;
     private Long utenteId;
