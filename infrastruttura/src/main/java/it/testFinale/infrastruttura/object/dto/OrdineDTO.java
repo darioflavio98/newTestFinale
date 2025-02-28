@@ -1,6 +1,6 @@
 package it.testFinale.infrastruttura.object.dto;
 
-import it.testFinale.infrastruttura.object.model.DettaglioOrdine;
+
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -13,5 +13,5 @@ public class OrdineDTO {
     private String stato;
     private Double totale;
     private Long utenteId;
-    private List<DettaglioOrdine> dettagli;
+    private List<DettaglioOrdineDTO> dettagli;
 }

@@ -13,5 +13,6 @@ public interface OrdineService {
     OrdineDTO creaOrdine(OrdineDTO ordineDTO);
 
     OrdineDTO updateOrdine(Long id, OrdineDTO ordineDTO);
+
     void deleteOrdine(Long id);
 }

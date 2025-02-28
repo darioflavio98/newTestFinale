@@ -13,11 +13,14 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class DettaglioOrdine {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column
     private Integer quantita;
+
     @Column(nullable = false)
     private Double prezzoTotale;
 
