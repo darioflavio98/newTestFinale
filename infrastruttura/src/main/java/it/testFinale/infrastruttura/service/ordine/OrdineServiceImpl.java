@@ -2,6 +2,7 @@ package it.testFinale.infrastruttura.service.ordine;
 
 import it.testFinale.infrastruttura.object.dto.DettaglioOrdineDTO;
 import it.testFinale.infrastruttura.object.dto.OrdineDTO;
+import it.testFinale.infrastruttura.object.dto.UtenteDTO;
 import it.testFinale.infrastruttura.object.model.DettaglioOrdine;
 import it.testFinale.infrastruttura.object.model.Ordine;
 import it.testFinale.infrastruttura.object.model.Prodotto;
@@ -15,14 +16,11 @@ import it.testFinale.infrastruttura.tools.ConvertiInDto;
 import it.testFinale.infrastruttura.tools.ConvertiInEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ansi.Ansi8BitColor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static it.testFinale.infrastruttura.tools.ConvertiInEntity.convertiOrdineDTOinEntity;
@@ -30,11 +28,12 @@ import static it.testFinale.infrastruttura.tools.ConvertiInEntity.convertiOrdine
 @Service
 public class OrdineServiceImpl implements OrdineService {
 
+
     private OrdineRepository ordineRepository;
     private UtenteRepository utenteRepository;
     private ProdottoRepository prodottoRepository;
     private DettaglioOrdineRepository dettaglioOrdineRepository;
-    private ConvertiInEntity convertiInEntity;
+    //private ConvertiInEntity convertiInEntity;
 
 
     @Autowired
@@ -43,7 +42,7 @@ public class OrdineServiceImpl implements OrdineService {
         this.utenteRepository = utenteRepository;
         this.prodottoRepository = prodottoRepository;
         this.dettaglioOrdineRepository = dettaglioOrdineRepository;
-        this.convertiInEntity = convertiInEntity;
+        //this.convertiInEntity = convertiInEntity;
     }
 
     @Override
@@ -58,6 +57,22 @@ public class OrdineServiceImpl implements OrdineService {
                 .map(ConvertiInDto::convertiInOrdineDTO)
                 .orElseThrow(() -> new RuntimeException("Ordine con id " + id + " non trovato."));
     }
+
+    @Override
+    public List<OrdineDTO> findOrdiniByUtenteId(Long utenteId) {
+
+        return ordineRepository.findByUtenteId(utenteId).stream()
+                .map(ConvertiInDto::convertiInOrdineDTO).toList();
+    }
+
+    @Override
+    public Double totaleSpesaUtente(Long id) {
+        List<OrdineDTO> ordiniDTO = ordineRepository.findByUtenteId(id).stream().map(ConvertiInDto::convertiInOrdineDTO).toList();
+
+        return ordiniDTO.stream().mapToDouble(ordineDTO->ordineDTO.getTotale()).sum();
+
+    }
+
 
     @Override
     @Transactional
@@ -140,4 +155,6 @@ public class OrdineServiceImpl implements OrdineService {
             throw new RuntimeException("L'Ordine con id " + id + " non è stato trovato");
         }
     }
+
+
 }
